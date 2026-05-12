@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Qeeyra</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Inter',sans-serif;
+    }
+
+    body{
+      background:linear-gradient(
+      135deg,
+      #f3e8ff,
+      #e9d5ff,
+      #ddd6fe,
+      #ede9fe
+      );
+      min-height:100vh;
+      overflow:hidden;
+      color:#4c1d95;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top left,
+      rgba(255,255,255,0.4),
+      transparent 30%),
+
+      radial-gradient(circle at bottom right,
+      rgba(255,255,255,0.3),
+      transparent 30%);
+      z-index:-1;
+    }
+
+    /* INTRO */
+
+    .intro{
+      position:fixed;
+      inset:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      z-index:999;
+      transition:1s ease;
+      background:linear-gradient(
+      135deg,
+      #f3e8ff,
+      #e9d5ff,
+      #ddd6fe,
+      #ede9fe
+      );
+    }
+
+    .envelope{
+      width:180px;
+      cursor:pointer;
+      transition:0.4s;
+      filter:drop-shadow(0 10px 20px rgba(124,58,237,0.15));
+    }
+
+    .envelope:hover{
+      transform:translateY(-8px) scale(1.03);
+    }
+
+    .intro p{
+      margin-top:20px;
+      color:#7c3aed;
+      font-size:14px;
+      letter-spacing:1px;
+    }
+
+    /* MAIN */
+
+    .main-content{
+      opacity:0;
+      transition:1s ease;
+      display:flex;
+      justify-content:center;
+      padding:40px 20px;
+    }
+
+    .main-content.show{
+      opacity:1;
+    }
+
+    .card{
+      width:100%;
+      max-width:850px;
+      background:rgba(255,255,255,0.4);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      padding:50px;
+      box-shadow:0 10px 40px rgba(124,58,237,0.08);
+      border:1px solid rgba(255,255,255,0.35);
+      margin:40px 0;
+    }
+
+    .title{
+      font-size:48px;
+      font-weight:700;
+      margin-bottom:10px;
+      color:#5b21b6;
+    }
+
+    .subtitle{
+      color:#8b5cf6;
+      margin-bottom:40px;
+      font-size:14px;
+      letter-spacing:1px;
+    }
+
+    #typingText{
+      white-space:pre-line;
+      line-height:2;
+      font-size:16px;
+      color:#4c1d95;
+      min-height:400px;
+    }
+
+    .cursor{
+      display:inline-block;
+      width:2px;
+      background:#7c3aed;
+      margin-left:3px;
+      animation:blink 0.7s infinite;
+    }
+
+    .question{
+      margin-top:50px;
+      text-align:center;
+      display:none;
+      animation:fadeIn 1s ease;
+    }
+
+    .question h2{
+      margin-bottom:25px;
+      font-size:32px;
+      color:#5b21b6;
+    }
+
+    .buttons{
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:none;
+      padding:14px 34px;
+      border-radius:999px;
+      cursor:pointer;
+      font-size:15px;
+      transition:0.3s;
+    }
+
+    .yes{
+      background:#7c3aed;
+      color:white;
+      font-weight:600;
+      box-shadow:0 5px 18px rgba(124,58,237,0.2);
+    }
+
+    .yes:hover{
+      background:#6d28d9;
+      transform:translateY(-3px);
+    }
+
+    .no{
+      background:rgba(255,255,255,0.4);
+      border:1px solid rgba(124,58,237,0.15);
+      color:#7c3aed;
+      position:relative;
+      backdrop-filter:blur(10px);
+    }
+
+    @keyframes blink{
+      50%{
+        opacity:0;
+      }
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media(max-width:768px){
+
+      .card{
+        padding:35px 25px;
+      }
+
+      .title{
+        font-size:36px;
+      }
+
+      #typingText{
+        font-size:15px;
+      }
+
+      .question h2{
+        font-size:25px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- INTRO -->
+  <div class="intro" id="intro">
+
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
+      class="envelope"
+      onclick="openLetter()"
+    >
+
+    <p>open the letter</p>
+
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-content" id="mainContent">
+
+    <div class="card">
+
+      <div class="title">Hi Qeeyra</div>
+      <div class="subtitle">there’s something i want to tell you.</div>
+
+      <div id="typingText"></div>
+
+      <div class="question" id="question">
+
+        <h2>Qeeyra, would you be my girlfriend?</h2>
+
+        <div class="buttons">
+          <button class="yes" onclick="sendTelegram()">Yes</button>
+          <button class="no" id="noBtn">No</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MUSIC -->
+  <audio id="bgMusic" loop>
+    <source src="lagu.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+
+    const text = `Maybe this isn’t the most perfect way to say all of this, but I want you to know that every word I’m writing comes from the deepest part of my heart. The more I get to know you, the more I realize that you’re the most different girl I’ve ever met. There’s something about you that makes me feel comfortable, calm, and always wanting to share so many things with you. Even compared to everyone who has ever come into my life before, I’ve never found someone with the same vibes as you. Believe it or not, I’m honestly just saying exactly what I truly feel. And somehow, in such a short amount of time, you became a completely new source of energy and feelings for me.
+
+Like the line from Peak of Love, “I don’t need sweet promises or beautiful words, your presence is already enough.” And honestly, I want us to be like that too. Not just about pretty words, but about staying, understanding each other, being there in small moments, and choosing each other sincerely.
+
+May 14th is also not just an ordinary date for me, because it’s my mother’s birthday. And honestly, it wasn’t easy for me to decide to tell you all of this in a way like this. For some reason, I feel the same warmth and comfort when I’m with you. A feeling that makes me want to protect you, be there for you, and be serious about you. That’s why I want to make you the second person I care for and protect the most after my mother. I’m serious about my feelings for you, and I’m serious about wanting to be part of your life. I hope with this step, we can both become more open with each other, understand each other better, and accept each other genuinely. And now, I just want to ask you to walk this path with me… so that “you” and “I” can finally become “us”.`;
+
+    const typingText =
+    document.getElementById("typingText");
+
+    const question =
+    document.getElementById("question");
+
+    const music =
+    document.getElementById("bgMusic");
+
+    let index = 0;
+
+    function openLetter(){
+
+      const intro =
+      document.getElementById("intro");
+
+      const main =
+      document.getElementById("mainContent");
+
+      music.play();
+
+      intro.style.opacity = "0";
+
+      setTimeout(() => {
+
+        intro.style.display = "none";
+
+        document.body.style.overflowY = "auto";
+
+        main.classList.add("show");
+
+        typeText();
+
+      }, 1000);
+
+    }
+
+    function typeText(){
+
+      if(index < text.length){
+
+        typingText.innerHTML =
+        text.substring(0,index) +
+        '<span class="cursor"></span>';
+
+        index++;
+
+        setTimeout(typeText,25);
+
+      } else {
+
+        typingText.innerHTML = text;
+
+        question.style.display = "block";
+
+      }
+
+    }
+
+    const noBtn =
+    document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+
+      const randomX =
+      Math.floor(Math.random()*200)-100;
+
+      const randomY =
+      Math.floor(Math.random()*200)-100;
+
+      noBtn.style.transform =
+      `translate(${randomX}px,${randomY}px)`;
+
+    });
+
+    async function sendTelegram(){
+
+      const botToken =
+      "8602242828:AAF7uZb1km1KhoSXfFJeIMOfRMBdhC9yyLs";
+
+      const chatId =
+      "6838886178";
+
+      const message =
+      "Qeeyra just said YES💜";
+
+      await fetch(
+        `https://api.telegram.org/bot${botToken}/sendMessage`,
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            chat_id:chatId,
+            text:message
+          })
+        }
+      );
+
+      alert("jangan kasih tau al dulu yaa ");
+
+    }
+
+  </script>
+
+</body>
+</html>
